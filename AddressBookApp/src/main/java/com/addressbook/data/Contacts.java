@@ -6,11 +6,11 @@ public class Contacts {
 	String Address;
 	String city;
 	String state;
-	int zip;
-	int phoneNumber;
+	String zip;
+	String phoneNumber;
 	String email;
-	public Contacts(String firstName, String lastName, String address, String city, String state, int zip,
-			int phoneNumber, String email) {
+	public Contacts(String firstName, String lastName, String address, String city, String state, String zip,
+			String phoneNumber, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -51,16 +51,16 @@ public class Contacts {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public int getZip() {
+	public String getZip() {
 		return zip;
 	}
-	public void setZip(int zip) {
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getEmail() {
