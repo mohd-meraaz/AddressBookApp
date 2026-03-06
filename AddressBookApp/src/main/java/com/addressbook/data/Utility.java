@@ -133,8 +133,32 @@ public class Utility {
 	    }
 
 	    if (!found) {
-	        System.out.println("Contact not found.");
+	        System.out.println("Contact not found............");
 	    }
+	}
+
+
+	public static void deleteContact(String firstName) {
+
+	    Contacts c = null;
+	    boolean found = false;
+
+	    for (Contacts contact : contacts) {
+
+	        if (contact.getFirstName().equalsIgnoreCase(firstName)) {
+	            c = contact;
+	            found = true;
+	            break;
+	        }
+	    }
+
+	    if (!found) {
+	        System.out.println("Contact not found............");
+	        return;
+	    }
+
+	    contacts.remove(c);
+	    System.out.println("Contact deleted successfully.");
 	}
 	
 
