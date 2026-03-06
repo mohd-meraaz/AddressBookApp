@@ -1,43 +1,65 @@
 package com.addressbook.data;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class AddressBookApp {
 
-    
-
     public static void main(String[] args) {
 
-        
-        System.out.println("Enter your operation in integer:- ");
-        System.out.println("1.Add new contact \n2. Display all contacts \n3.Update by firstName \n4.Delete");
-        Scanner Sc = new Scanner(System.in);
-        int n = Sc.nextInt();
-        String firstName;
-        switch (n)
-        {
-        	case 1:
-        		Utility.addContact();
-        		break;
-        	case 2:
-        		Utility.display();
-        		break;
-        	
-        	case 3:
-        		System.out.println("Enter firstname of the contact");
-        		firstName = Sc.nextLine();
-        		Utility.updateContact(firstName);
-        		break;
-        		
-        	case 4:
-        		System.out.println("Enter firstname of the contact");
-        		firstName = Sc.nextLine();
-        		Utility.deleteContact(firstName);
-        		break;
-        		
-        	default:
-        		System.out.println("Invalid Input......");
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {   
+
+            System.out.println("\nEnter your operation:");
+            System.out.println("1. Add new contact");
+            System.out.println("2. Add multiple contacts");
+            System.out.println("3. Display all contacts");
+            System.out.println("4. Update by firstName");
+            System.out.println("5. Delete contact");
+            System.out.println("6. Exit");
+
+            int n = sc.nextInt();
+            sc.nextLine();   
+
+            String firstName;
+
+            switch (n) {
+
+                case 1:
+                    Utility.addContact();
+                    break;
+
+                case 2:
+                    System.out.println("Enter how many contacts you want to enter:");
+                    int number = sc.nextInt();
+                    sc.nextLine();   
+                    Utility.addMultipleContacts(number);
+                    break;
+
+                case 3:
+                    Utility.display();
+                    break;
+
+                case 4:
+                    System.out.print("Enter firstname of the contact: ");
+                    firstName = sc.nextLine();
+                    Utility.updateContact(firstName);
+                    break;
+
+                case 5:
+                    System.out.print("Enter firstname of the contact: ");
+                    firstName = sc.nextLine();
+                    Utility.deleteContact(firstName);
+                    break;
+
+                case 6:
+                    System.out.println("Exiting application...");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid Input......");
+            }
         }
-       
     }
 }

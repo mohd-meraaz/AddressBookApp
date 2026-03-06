@@ -160,6 +160,14 @@ public class Utility {
 	    contacts.remove(c);
 	    System.out.println("Contact deleted successfully.");
 	}
+
+
+	public static void addMultipleContacts(int num) {
+		for(int i = 0;i<num ; i++) {
+			addContact();
+		}
+		
+	}
 	
 
 }
