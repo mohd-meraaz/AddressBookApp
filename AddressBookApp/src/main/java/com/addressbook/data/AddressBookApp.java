@@ -2,20 +2,23 @@ package com.addressbook.data;
 
 import java.util.Scanner;
 
+/* Main Application */
+
 public class AddressBookApp {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        AddressBookSystem addressBookSystem = new AddressBookSystem();
-        AddressBook addressBook = null;
+        AddressBookSystem system = new AddressBookSystem();
+
         while (true) {
 
             System.out.println("\nMAIN MENU");
-            System.out.println("1. Add new Address Book");
-            System.out.println("2. Use existing Address Book");
-            System.out.println("3. Search Contacts");
-            System.out.println("4. Exit");
+            System.out.println("1 Add Address Book");
+            System.out.println("2 Open Address Book");
+            System.out.println("3 Search Person");
+            System.out.println("4 Count Contacts");
+            System.out.println("5 Exit");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -23,119 +26,143 @@ public class AddressBookApp {
             switch (choice) {
 
                 case 1:
-                    System.out.print("Enter the name of new address book: ");
-                    String newName = sc.nextLine();
 
-                    addressBookSystem.addAddressBook(newName);
-                    System.out.println(newName + " address book added successfully");
+                    System.out.print("Enter Address Book Name: ");
+                    String name = sc.nextLine();
+
+                    system.addAddressBook(name);
                     break;
 
                 case 2:
-                    System.out.println("Available Address Books:");
-                    addressBookSystem.displayAddressBook();
 
-                    System.out.print("Enter address book name: ");
-                    String name = sc.nextLine();
+                    /* FIX: show existing address books */
+                    if(system.displayAddressBooks()) {
 
-                    addressBook = addressBookSystem.getAddressBook(name);
+                    	System.out.print("Enter Address Book Name: ");
+                    	String bookName = sc.nextLine();
 
-                    if (addressBook == null) {
-                        System.out.println("Address book not found.");
-                        break;
+                    	AddressBook book = system.getAddressBook(bookName);
+
+                    	if (book == null) {
+                    		System.out.println("Address Book not found.");
+                    		break;
+                    	}
+
+                    	manageAddressBook(book, sc);
+                    	break;
+                    }
+                    else {
+                    	System.out.println("No Address Books available.");
+                    	break;
                     }
 
-                    manageAddressBook(addressBook, sc);
-                    break;
                 case 3:
 
-                    System.out.println("1. Search By City");
-                    System.out.println("2. Search By State");
+                    System.out.println("1 Search By City");
+                    System.out.println("2 Search By State");
 
-                    int searchChoice = sc.nextInt();
+                    int search = sc.nextInt();
                     sc.nextLine();
 
-                    switch (searchChoice) {
+                    if (search == 1) {
 
-                        case 1:
-                            System.out.print("Enter city name: ");
-                            String city = sc.nextLine();
-                            addressBookSystem.searchByCityAcrossAddressBooks(city);
-                            break;
+                        /* FIX: show existing cities */
+                        system.displayAvailableCities();
 
-                        case 2:
-                            System.out.print("Enter state name: ");
-                            String state = sc.nextLine();
-                            addressBookSystem.searchByStateAcrossAddressBooks(state);
-                            break;
+                        System.out.print("Enter City: ");
+                        system.searchByCity(sc.nextLine());
 
-                        default:
-                            System.out.println("Invalid choice.");
+                    } else {
+
+                        /* FIX: show existing states */
+                        system.displayAvailableStates();
+
+                        System.out.print("Enter State: ");
+                        system.searchByState(sc.nextLine());
                     }
 
                     break;
-                	
-                case 4:
-                    System.out.println("Exiting system...");
-                    sc.close();
-                    return;
 
-                default:
-                    System.out.println("Invalid input.");
+                case 4:
+
+                    System.out.println("1 Count By City");
+                    System.out.println("2 Count By State");
+
+                    int countChoice = sc.nextInt();
+                    sc.nextLine();
+
+                    if (countChoice == 1) {
+
+                        /* FIX: show existing cities */
+                        system.displayAvailableCities();
+
+                        System.out.print("Enter City: ");
+                        system.countByCity(sc.nextLine());
+
+                    } else {
+
+                        /* FIX: show existing states */
+                        system.displayAvailableStates();
+
+                        System.out.print("Enter State: ");
+                        system.countByState(sc.nextLine());
+                    }
+
+                    break;
+
+                case 5:
+                    System.out.println("Exiting...");
+                    System.exit(0);
             }
         }
     }
 
-    private static void manageAddressBook(AddressBook addressBook, Scanner sc) {
+    /* AddressBook Menu */
+
+    private static void manageAddressBook(AddressBook book, Scanner sc) {
 
         while (true) {
 
             System.out.println("\nCONTACT MENU");
-            System.out.println("1. Add contact");
-            System.out.println("2. Add multiple contacts");
-            System.out.println("3. Display contacts");
-            System.out.println("4. Update contact");
-            System.out.println("5. Delete contact");
-            System.out.println("6. Back to Main Menu");
+            System.out.println("1 Add Contact");
+            System.out.println("2 Add Multiple Contacts");
+            System.out.println("3 Display Contacts");
+            System.out.println("4 Update Contact");
+            System.out.println("5 Delete Contact");
+            System.out.println("6 Back");
 
-            int n = sc.nextInt();
+            int choice = sc.nextInt();
             sc.nextLine();
 
-            String firstName;
-
-            switch (n) {
+            switch (choice) {
 
                 case 1:
-                    addressBook.addContact();
+                    book.addContact();
                     break;
 
                 case 2:
-                    System.out.print("How many contacts to add: ");
-                    int number = sc.nextInt();
+                    System.out.print("How many contacts: ");
+                    int num = sc.nextInt();
                     sc.nextLine();
-                    addressBook.addMultipleContacts(number);
+                    book.addMultipleContacts(num);
                     break;
 
                 case 3:
-                    addressBook.display();
+                    book.displayContacts();
                     break;
 
                 case 4:
-                    System.out.print("Enter first name: ");
-                    firstName = sc.nextLine();
-                    addressBook.updateContact(firstName);
+                    System.out.print("Enter First Name: ");
+                    book.updateContact(sc.nextLine());
                     break;
 
                 case 5:
-                    System.out.print("Enter first name: ");
-                    firstName = sc.nextLine();
-                    addressBook.deleteContact(firstName);
+                    System.out.print("Enter First Name: ");
+                    book.deleteContact(sc.nextLine());
                     break;
 
                 case 6:
                     return;
-
-                default:
-                    System.out.println("Invalid input.");
             }
         }
     }
