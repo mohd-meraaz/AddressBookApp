@@ -2,6 +2,7 @@ package com.addressbook.data;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -143,4 +144,11 @@ public class AddressBook {
     public List<Contact> getContacts() {
         return contacts;
     }
+
+    public void sortByName() {
+        contacts.stream()
+                .sorted(Comparator.comparing(Contact::getFirstName).thenComparing(Contact::getLastName)) 
+                .forEach(x-> System.out.println(x.getFirstName()+" "+x.getLastName())); 
+    }
+    
 }

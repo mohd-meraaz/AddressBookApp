@@ -129,7 +129,8 @@ public class AddressBookApp {
             System.out.println("3 Display Contacts");
             System.out.println("4 Update Contact");
             System.out.println("5 Delete Contact");
-            System.out.println("6 Back");
+            System.out.println("6 Print Sorted Contacts");
+            System.out.println("7 Back");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -160,9 +161,23 @@ public class AddressBookApp {
                     System.out.print("Enter First Name: ");
                     book.deleteContact(sc.nextLine());
                     break;
-
                 case 6:
+                	System.out.println("1.By Name");
+                	int input = sc.nextInt();
+                	switch (input) {
+                		case 1:
+                			book.sortByName();
+                			
+                		default:
+                			System.out.println("Invalid input.");
+                	}
+                	break;
+
+                case 7:
                     return;
+                    
+                default:
+                	System.out.println("Invalid input.");
             }
         }
     }
