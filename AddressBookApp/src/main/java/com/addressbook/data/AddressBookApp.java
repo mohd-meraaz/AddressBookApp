@@ -130,7 +130,9 @@ public class AddressBookApp {
             System.out.println("4 Update Contact");
             System.out.println("5 Delete Contact");
             System.out.println("6 Print Sorted Contacts");
-            System.out.println("7 Back");
+            System.out.println("7 Save Contacts To File ");
+            System.out.println("8 Load Contacts From File");
+            System.out.println("9 Back");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -185,8 +187,13 @@ public class AddressBookApp {
                 			System.out.println("Invalid input.");
                 	}
                 	break;
-
                 case 7:
+                	book.writeContactToFile("contacts.txt");
+                	break;
+                case 8:
+                	book.readContactFile("contacts.txt");
+                	break;
+                case 9:
                     return;
                     
                 default:
