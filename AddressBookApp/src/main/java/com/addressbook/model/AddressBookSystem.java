@@ -1,4 +1,4 @@
-package com.addressbook.data;
+package com.addressbook.model;
 
 import java.util.HashMap;
 import java.util.Map;

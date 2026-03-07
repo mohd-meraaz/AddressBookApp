@@ -1,4 +1,4 @@
-package com.addressbook.data;
+package com.addressbook.model;
 
 import java.util.Scanner;
 
@@ -35,7 +35,6 @@ public class AddressBookApp {
 
                 case 2:
 
-                    /* FIX: show existing address books */
                     if(system.displayAddressBooks()) {
 
                     	System.out.print("Enter Address Book Name: ");
