@@ -134,7 +134,9 @@ public class AddressBookApp {
             System.out.println("8 Load Contacts From File");
             System.out.println("9 Save Contacts To CSV ");
             System.out.println("10 Load Contacts From CSV");
-            System.out.println("15 Back");
+            System.out.println("11 Save Contacts To JSON ");
+            System.out.println("12 Load Contacts From JSON");
+            System.out.println("13 Back");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -197,9 +199,17 @@ public class AddressBookApp {
                 	break;
                 case 9:
                 	book.writeContactsToCSVFile("contacts.csv");
+                	break;
                 case 10:
                 	book.readContactsToCSVFile("contacts.csv");
-                case 15:
+                	break;
+                case 11:
+                	book.writeContactsToJSONFile("contacts.json");
+                    break;
+                case 12:
+                	book.readContactsFromJSONFile("contacts.json");
+                    break;
+                case 13:
                     return;
                     
                 default:

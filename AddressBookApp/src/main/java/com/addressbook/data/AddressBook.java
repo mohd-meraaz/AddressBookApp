@@ -6,11 +6,15 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import com.opencsv.CSVWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
@@ -255,6 +259,32 @@ public class AddressBook {
 			e.printStackTrace();
 		}
 		catch(CsvValidationException e) {
+			e.printStackTrace();
+		}
+	}
+	public void writeContactsToJSONFile(String filePath) {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
+		try(FileWriter writer = new FileWriter(filePath)){
+			gson.toJson(contacts, writer);
+			System.out.println("Contacts saved to json");
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void readContactsFromJSONFile(String filePath) {
+		contacts.clear();
+		Gson gson = new Gson();
+		try(FileReader reader = new FileReader(filePath)){
+			Type contactListType = new TypeToken<List<Contact>>() {}.getType();
+			
+			contacts = gson.fromJson(reader, contactListType);
+			
+			if(contacts ==null)
+				contacts = new ArrayList<>();
+			System.out.println("Contacts loaded from JSON");
+		}
+		catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
