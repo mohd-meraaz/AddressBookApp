@@ -10,9 +10,12 @@ public class AddressBook {
 
 	static Scanner sc = new Scanner(System.in);
 	
+	
+	
 //	Method to add contact in the Contacts Application
 	public  void addContact() {
     
+		
 
         System.out.print("\nEnter First Name:- ");
         String firstName = sc.nextLine();
@@ -20,6 +23,15 @@ public class AddressBook {
         System.out.print("Enter Last Name:- ");
         String lastName = sc.nextLine();
 
+        for(Contacts c : contacts){
+            if(c.getFirstName().equalsIgnoreCase(firstName) &&
+               c.getLastName().equalsIgnoreCase(lastName)){
+
+                System.out.println("Duplicate contact not allowed.");
+                return;
+            }
+        }
+        
         System.out.print("Enter Address:- ");
         String address = sc.nextLine();
 
