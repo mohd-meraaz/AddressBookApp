@@ -1,7 +1,7 @@
 package com.addressbook.data;
 
 
-import java.io.BufferedReader;
+import java.io.*;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
 /* Represents a single Address Book */
 
@@ -208,6 +211,50 @@ public class AddressBook {
 			System.out.println("Contacts loaded from file");
 		}
 		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void writeContactsToCSVFile(String filePath) {
+		try(CSVWriter writer = new CSVWriter(new FileWriter(filePath))){
+			String[] header = {"FirstName", "LastName", "Address", "City",
+					"State", "Zip", "PhoneNumber", "Email"
+			};
+			writer.writeNext(header);
+			
+			for(Contact c:contacts) {
+				String[] data = {
+						c.getFirstName(), c.getLastName(),
+						c.getAddress(), c.getCity(),
+						c.getState(), c.getZip(),
+						c.getPhoneNumber(), c.getEmail()
+				};
+				
+				writer.writeNext(data);
+			}
+			System.out.println("Contacts saved to csv file");
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void readContactsToCSVFile(String filePath) {
+		contacts.clear();
+		try(CSVReader reader = new CSVReader(new FileReader(filePath))){
+			String[]  line;
+			reader.readNext();
+			while((line=reader.readNext())!=null) {
+				if(line.length!=8) continue;
+				Contact c= new Contact(line[0], line[1],
+						line[2], line[3], line[4], line[5], line[6], line[7]);
+				contacts.add(c);
+			}
+			System.out.println("Contacts loaded from CSV");
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		catch(CsvValidationException e) {
 			e.printStackTrace();
 		}
 	}

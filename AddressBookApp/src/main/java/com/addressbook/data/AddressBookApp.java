@@ -132,7 +132,9 @@ public class AddressBookApp {
             System.out.println("6 Print Sorted Contacts");
             System.out.println("7 Save Contacts To File ");
             System.out.println("8 Load Contacts From File");
-            System.out.println("9 Back");
+            System.out.println("9 Save Contacts To CSV ");
+            System.out.println("10 Load Contacts From CSV");
+            System.out.println("15 Back");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -194,6 +196,10 @@ public class AddressBookApp {
                 	book.readContactFile("contacts.txt");
                 	break;
                 case 9:
+                	book.writeContactsToCSVFile("contacts.csv");
+                case 10:
+                	book.readContactsToCSVFile("contacts.csv");
+                case 15:
                     return;
                     
                 default:
