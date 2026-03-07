@@ -180,6 +180,16 @@ public class AddressBook {
 		}
 		
 	}
+	public List<Contacts> getContacts() {
+	    return contacts;
+	}
+	public void searchByCity(String cityName) {
+		contacts.stream().filter(c->c.getCity().equals(cityName)).forEach(System.out::println);
+	}
+	
+	public void searchByState(String stateName) {
+		contacts.stream().filter(c->c.getState().equals(stateName)).forEach(System.out::println);
+	}
 	
 
 }

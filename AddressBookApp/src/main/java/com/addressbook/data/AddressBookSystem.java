@@ -28,14 +28,24 @@ public class AddressBookSystem {
 	public Set<String> listAllAddressBooks() {
 		return addressBooks.keySet();
 	}
+	public void searchByCityAcrossAddressBooks(String city) {
+
+	    addressBooks.values()
+	            .stream()
+	            .flatMap(ab -> ab.getContacts().stream())
+	            .filter(c -> c.getCity().equalsIgnoreCase(city))
+	            .forEach(System.out::println);
+	}
 	
+	public void searchByStateAcrossAddressBooks(String state) {
+
+	    addressBooks.values()
+	            .stream()
+	            .flatMap(ab -> ab.getContacts().stream())
+	            .filter(c -> c.getState().equalsIgnoreCase(state))
+	            .forEach(System.out::println);
+	}
 }
-
-
-
-
-
-
 
 
 

@@ -8,13 +8,14 @@ public class AddressBookApp {
 
         Scanner sc = new Scanner(System.in);
         AddressBookSystem addressBookSystem = new AddressBookSystem();
-
+        AddressBook addressBook = null;
         while (true) {
 
             System.out.println("\nMAIN MENU");
             System.out.println("1. Add new Address Book");
             System.out.println("2. Use existing Address Book");
-            System.out.println("3. Exit");
+            System.out.println("3. Search Contacts");
+            System.out.println("4. Exit");
 
             int choice = sc.nextInt();
             sc.nextLine();
@@ -36,7 +37,7 @@ public class AddressBookApp {
                     System.out.print("Enter address book name: ");
                     String name = sc.nextLine();
 
-                    AddressBook addressBook = addressBookSystem.getAddressBook(name);
+                    addressBook = addressBookSystem.getAddressBook(name);
 
                     if (addressBook == null) {
                         System.out.println("Address book not found.");
@@ -45,8 +46,35 @@ public class AddressBookApp {
 
                     manageAddressBook(addressBook, sc);
                     break;
-
                 case 3:
+
+                    System.out.println("1. Search By City");
+                    System.out.println("2. Search By State");
+
+                    int searchChoice = sc.nextInt();
+                    sc.nextLine();
+
+                    switch (searchChoice) {
+
+                        case 1:
+                            System.out.print("Enter city name: ");
+                            String city = sc.nextLine();
+                            addressBookSystem.searchByCityAcrossAddressBooks(city);
+                            break;
+
+                        case 2:
+                            System.out.print("Enter state name: ");
+                            String state = sc.nextLine();
+                            addressBookSystem.searchByStateAcrossAddressBooks(state);
+                            break;
+
+                        default:
+                            System.out.println("Invalid choice.");
+                    }
+
+                    break;
+                	
+                case 4:
                     System.out.println("Exiting system...");
                     sc.close();
                     return;
