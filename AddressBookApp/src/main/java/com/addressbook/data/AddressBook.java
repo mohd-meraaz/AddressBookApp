@@ -150,5 +150,27 @@ public class AddressBook {
                 .sorted(Comparator.comparing(Contact::getFirstName).thenComparing(Contact::getLastName)) 
                 .forEach(x-> System.out.println(x.getFirstName()+" "+x.getLastName())); 
     }
+
+	public void sortByCity() {
+		 contacts.stream()
+         .sorted(Comparator.comparing(Contact::getCity))
+         .forEach(x-> System.out.println(x.getFirstName()+" "+x.getLastName())); 
+		
+	}
+
+	public void sortByState() {
+		contacts.stream()
+        .sorted(Comparator.comparing(Contact::getState))
+        .forEach(x-> System.out.println(x.getFirstName()+" "+x.getLastName())); 
+		
+		
+	}
+
+	public void sortByZip() {
+		contacts.stream()
+        .sorted(Comparator.comparing(Contact::getZip))
+        .forEach(x-> System.out.println(x.getFirstName()+" "+x.getLastName())); 
+		
+	}
     
 }

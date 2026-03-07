@@ -163,10 +163,23 @@ public class AddressBookApp {
                     break;
                 case 6:
                 	System.out.println("1.By Name");
+                	System.out.println("2.By City");
+                	System.out.println("3.By State");
+                	System.out.println("4.By Zip");
+                	System.out.println("5.Go Back");
+                	
                 	int input = sc.nextInt();
                 	switch (input) {
                 		case 1:
                 			book.sortByName();
+                		case 2:
+                			book.sortByCity();
+                		case 3:
+                			book.sortByState();
+                		case 4:
+                			book.sortByZip();
+                		case 5:
+                			return;
                 			
                 		default:
                 			System.out.println("Invalid input.");
