@@ -1,4 +1,4 @@
-package com.addressbook.app;
+package com.addressbook.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 

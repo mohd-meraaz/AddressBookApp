@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Utility {
+public class AddressBook {
 	
 	static List<Contacts> contacts = new ArrayList<>();
 
 	static Scanner sc = new Scanner(System.in);
 	
 //	Method to add contact in the Contacts Application
-	public static void addContact() {
+	public  void addContact() {
     
 
         System.out.print("\nEnter First Name:- ");
@@ -46,7 +46,7 @@ public class Utility {
 	
 	
 //	Method to display all contacts in the Contacts Application
-	public static void display() {
+	public  void display() {
 
 	    if (contacts.isEmpty()) {
 	        System.out.println("\nNo contacts available.");
@@ -69,7 +69,7 @@ public class Utility {
 	}
 	
 //	Method to update contact in the Contacts Application
-	public static void updateContact(String firstName) {
+	public  void updateContact(String firstName) {
 
 	    boolean found = false;
 
@@ -138,7 +138,7 @@ public class Utility {
 	}
 
 
-	public static void deleteContact(String firstName) {
+	public  void deleteContact(String firstName) {
 
 	    Contacts c = null;
 	    boolean found = false;
@@ -162,7 +162,7 @@ public class Utility {
 	}
 
 
-	public static void addMultipleContacts(int num) {
+	public  void addMultipleContacts(int num) {
 		for(int i = 0;i<num ; i++) {
 			addContact();
 		}
