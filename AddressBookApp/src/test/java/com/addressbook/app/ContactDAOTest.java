@@ -5,6 +5,7 @@ import com.addressbook.model.Contact;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,6 +55,35 @@ public class ContactDAOTest {
 
         assertTrue(updated);
     }
+    /*
+	 Ability to Retrieve Contacts
+from the Database that
+were added in a particular
+period 
+	*/
+    @Test
+    public void shouldRetrieveContactsAddedInDateRange(){
+
+        ContactDAO dao = new ContactDAO();
+
+        List<Contact> contacts = dao.getContactsByDateRange(
+                LocalDate.of(2026,3,1),
+                LocalDate.of(2026,3,31)
+        );
+
+        assertNotNull(contacts);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }

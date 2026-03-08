@@ -1,5 +1,6 @@
 package com.addressbook.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /* Model class representing a contact person */
@@ -13,6 +14,7 @@ public class Contact {
     private String zip;
     private String phoneNumber;
     private String email;
+    private LocalDate dateAdded;
 
     public Contact(String firstName, String lastName, String address,
                    String city, String state, String zip,
@@ -61,6 +63,13 @@ public class Contact {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
 
     /* Override equals to avoid duplicate contact */
 
