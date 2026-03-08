@@ -5,13 +5,13 @@ import com.addressbook.model.Contact;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /*
  DAO Layer
  Responsible for interacting with database
- Retrieves contacts from CONTACT table
 */
 
 public class ContactDAO {
@@ -61,4 +61,36 @@ public class ContactDAO {
 
         return contacts;
     }
+    
+    // Method to update contacts
+    public boolean updateContact(Contact contact) {
+
+        String query = "UPDATE CONTACT SET address=?, city=?, state=?, zip=?, phoneNumber=?, email=? WHERE firstName=? AND lastName=?";
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query)
+        ) {
+
+            ps.setString(1, contact.getAddress());
+            ps.setString(2, contact.getCity());
+            ps.setString(3, contact.getState());
+            ps.setString(4, contact.getZip());
+            ps.setString(5, contact.getPhoneNumber());
+            ps.setString(6, contact.getEmail());
+            ps.setString(7, contact.getFirstName());
+            ps.setString(8, contact.getLastName());
+
+            int rowsUpdated = ps.executeUpdate();
+
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    
 }

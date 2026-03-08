@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ContactDAOTest {
 	/*
-	 UC16 Test
 	 Verify AddressBook service retrieves contacts from database
 	*/
 
@@ -31,6 +30,29 @@ public class ContactDAOTest {
 
         // print contacts to verify
         contacts.forEach(System.out::println);
+    }
+    /*
+	 Verify AddressBook service update contacts from database
+	*/
+    @Test
+    public void updateContactInDatabase() {
+
+        ContactDAO dao = new ContactDAO();
+
+        Contact contact = new Contact(
+                "Rohan",
+                "Mishra",
+                "New Address",
+                "Mumbai",
+                "Maharashtra",
+                "400001",
+                "9876543210",
+                "rohan@test.com"
+        );
+
+        boolean updated = dao.updateContact(contact);
+
+        assertTrue(updated);
     }
     
     
