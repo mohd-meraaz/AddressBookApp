@@ -82,7 +82,7 @@ public class Contact {
         return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase());
     }
 
-    /* Print contact nicely */
+    /* Print contact  */
 
     @Override
     public String toString() {
