@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /*
  DAO Layer
@@ -17,7 +19,9 @@ import java.util.List;
 */
 
 public class ContactDAO {
-
+	DBConnection dbconnection = DBConnection.getInstance();
+	Connection connection = dbconnection.getConnection();
+	
     public List<Contact> getAllContacts() {
 
         List<Contact> contacts = new ArrayList<>();
@@ -25,7 +29,7 @@ public class ContactDAO {
         String query = "SELECT * FROM CONTACT";
 
         try (
-                Connection conn = DBConnection.getConnection();
+                Connection conn = connection;
                 PreparedStatement ps = conn.prepareStatement(query);
                 ResultSet rs = ps.executeQuery()
         ) {
@@ -70,7 +74,7 @@ public class ContactDAO {
         String query = "UPDATE CONTACT SET address=?, city=?, state=?, zip=?, phoneNumber=?, email=? WHERE firstName=? AND lastName=?";
 
         try (
-                Connection conn = DBConnection.getConnection();
+                Connection conn =connection;
                 PreparedStatement ps = conn.prepareStatement(query)
         ) {
 
@@ -101,7 +105,7 @@ public class ContactDAO {
         String query = "SELECT * FROM CONTACT WHERE date_added BETWEEN ? AND ?";
 
         try (
-                Connection conn = DBConnection.getConnection();
+                Connection conn = connection;
                 PreparedStatement ps = conn.prepareStatement(query)
         ) {
 
@@ -140,7 +144,7 @@ public class ContactDAO {
         String query = "SELECT city, COUNT(*) AS contact_count FROM CONTACT GROUP BY city";
 
         try (
-                Connection conn = DBConnection.getConnection();
+                Connection conn = connection;
                 PreparedStatement ps = conn.prepareStatement(query);
                 ResultSet rs = ps.executeQuery()
         ) {
@@ -163,7 +167,7 @@ public class ContactDAO {
         String query = "SELECT state, COUNT(*) AS contact_count FROM CONTACT GROUP BY state";
 
         try (
-                Connection conn = DBConnection.getConnection();
+                Connection conn = connection;
                 PreparedStatement ps = conn.prepareStatement(query);
                 ResultSet rs = ps.executeQuery()
         ) {
@@ -189,7 +193,7 @@ public class ContactDAO {
 
         try {
 
-            conn = DBConnection.getConnection();
+            conn = connection;
 
             // Start transaction
             conn.setAutoCommit(false);
@@ -228,6 +232,45 @@ public class ContactDAO {
         return false;
     }
     
-    
+    public boolean addMultipleContacts(List<Contact> contactList) {
+    	ExecutorService executor = Executors.newFixedThreadPool(5);
+    	for (Contact contact : contactList) {
+    		executor.execute(()->{
+    			Connection conn = null;
+    			
+    			try {
+					conn =connection;
+		            conn.setAutoCommit(false);   // Start transaction
+					String sql = "INSERT INTO contact (first_name, last_name, address, city, state, zip, phone_number, email) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+					PreparedStatement statement = connection.prepareStatement(sql);
+					
+					statement.setString(1, contact.getFirstName());
+					statement.setString(2, contact.getLastName());
+					statement.setString(3, contact.getAddress());
+					statement.setString(4, contact.getCity());
+					statement.setString(5, contact.getState());
+					statement.setString(6, contact.getZip());
+					statement.setString(7, contact.getPhoneNumber());
+					statement.setString(8, contact.getEmail());
+					statement.executeUpdate();
+					
+					conn.commit();   // Success
+	                System.out.println("Contact added by " + Thread.currentThread().getName() + " : " + contact.getFirstName());				}
+				catch(SQLException e) {
+					try {
+	                    if (conn != null) {
+	                        conn.rollback();
+	                    }
+	                } catch (SQLException ex) {
+	                    System.out.println(ex.getMessage());
+	                }
+					System.out.println(e.getMessage());
+				}
+    		}
+    		);
+    	}
+		return false;
+    	
+    }
     
 }
