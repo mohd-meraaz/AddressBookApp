@@ -39,12 +39,41 @@ public class JSONServerRepository implements AddressBookRepository {
                     .contentType("application/json")
                     .body(contact)
                 .when()
-                    .put(BASE_URL + "/" + contact.getId())
+                    .put(BASE_URL + "/" + contact.getFirstName())
                 .then()
                     .statusCode(200)
                     .extract()
                     .response();
 
         return response.as(Contact.class);
+    }
+    
+    public boolean deleteContact(String firstName) {
+
+        List<Contact> contacts = getContacts();
+
+        Contact contactToDelete = null;
+
+        for (Contact contact : contacts) {
+            if (contact.getFirstName().equalsIgnoreCase(firstName)) {
+                contactToDelete = contact;
+                break;
+            }
+        }
+
+        if (contactToDelete == null) {
+            return false;
+        }
+
+        Response response =
+                given()
+                .when()
+                .delete(BASE_URL + "/" + contactToDelete.getFirstName())
+                .then()
+                .statusCode(200)
+                .extract()
+                .response();
+
+        return response.getStatusCode() == 200;
     }
 }

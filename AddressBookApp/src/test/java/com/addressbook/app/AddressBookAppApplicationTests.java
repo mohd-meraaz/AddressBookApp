@@ -24,7 +24,6 @@ class AddressBookAppApplicationTests {
         service.syncContacts();
 
         Contact contact = new Contact(
-                1,
                 "Amit Updated",
                 "Delhi",
                 "9999999999",
@@ -36,5 +35,21 @@ class AddressBookAppApplicationTests {
         assertEquals("Amit Updated",
                 service.getContacts().get(1).getFirstName());
     }
+	@Test
+	public void givenFirstName_WhenDeleted_ShouldSyncWithMemory() {
 
+	    JSONServerRepository repo = new JSONServerRepository();
+
+	    AddressBookService service = new AddressBookService(repo);
+
+	    service.syncContacts();
+
+	    int initialSize = service.getContacts().size();
+
+	    String firstName = service.getContacts().get(0).getFirstName();
+
+	    service.deleteContact(firstName);
+
+	    assertEquals(initialSize - 1, service.getContacts().size());
+	}
 }

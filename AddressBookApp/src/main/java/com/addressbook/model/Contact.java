@@ -45,13 +45,17 @@ public class Contact {
 		this.email = email;
 		this.date = date;
 	}
+    public Contact( String firstName, String city, String phone, String email) {
+ 
+        this.firstName = firstName;
+        this.city = city;
+        this.phoneNumber = phone;
+        this.email = email;
+    }
 
 	/* Getters and Setters */
 
-    public Contact(int i, String string, String string2, String string3, String string4) {
-		// TODO Auto-generated constructor stub
-	}
-	public LocalDate getDate() {
+    public LocalDate getDate() {
 		return date;
 	}
 

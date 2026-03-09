@@ -76,4 +76,13 @@ public class AddressBookService {
     public List<Contact> getContacts() {
         return contactList;
     }
+    public void deleteContact(String firstName) {
+
+        boolean deleted = repository.deleteContact(firstName);
+
+        if (deleted) {
+            contactList.removeIf(contact ->
+                    contact.getFirstName().equalsIgnoreCase(firstName));
+        }
+    }
 }

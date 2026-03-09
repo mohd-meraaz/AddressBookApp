@@ -8,4 +8,5 @@ public interface AddressBookRepository {
     List<Contact> getContacts();
 
     Contact updateContact(Contact contact);
+    boolean deleteContact(String firstName);
 }
