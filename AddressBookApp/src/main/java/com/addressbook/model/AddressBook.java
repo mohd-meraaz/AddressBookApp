@@ -22,11 +22,13 @@ import com.opencsv.exceptions.CsvValidationException;
 
 public class AddressBook {
 
-    private List<Contact> contacts = new ArrayList<>();
+    public static List<Contact> contacts = new ArrayList<>();
     private Scanner sc = new Scanner(System.in);
 
     /* Add new contact */
-
+    public void addContact(Contact contact){
+        contacts.add(contact);
+    }
     public void addContact() {
 
         System.out.print("First Name: ");

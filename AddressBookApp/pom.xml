@@ -50,7 +50,6 @@
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
-		    <version>2.13.2</version>
 		    <scope>compile</scope>
 		</dependency>
 		<!-- Source: https://mvnrepository.com/artifact/com.opencsv/opencsv -->
@@ -65,6 +64,18 @@
 		    <artifactId>rest-assured</artifactId>
 		    <version>5.3.0</version>
 		    <scope>test</scope>
+		</dependency>
+			<dependency>
+			    <groupId>io.rest-assured</groupId>
+			    <artifactId>rest-assured</artifactId>
+			    <version>5.3.0</version>
+			    <scope>test</scope>
+		</dependency>
+	
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter</artifactId>
+		    <version>5.9.3</version>
 		</dependency>
 	</dependencies>
 

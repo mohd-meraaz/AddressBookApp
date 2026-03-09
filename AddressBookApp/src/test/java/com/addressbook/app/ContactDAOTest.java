@@ -1,8 +1,9 @@
 package com.addressbook.app;
 
 import com.addressbook.database.ContactDAO;
+import com.addressbook.model.AddressBook;
 import com.addressbook.model.Contact;
-
+import static io.restassured.RestAssured.given;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
@@ -132,6 +133,37 @@ public class ContactDAOTest {
         for(Contact contact : contacts){
             System.out.println(contact);
         }
+    }
+    AddressBook service = new AddressBook();
+
+    @Test
+    public void givenMultipleContactsWhenAddedShouldSyncWithMemory() {
+
+        RestAssured.baseURI = "http://localhost:3000";
+
+        Contact[] contacts = {
+                new Contact("Amit","Street1","Bhopal","9999999991","amit@gmail.com", null, null, null, LocalDate.now()),
+                new Contact("Rahul","Street2","Indore","9999999992","rahul@gmail.com", null, null, null, LocalDate.now()),
+                new Contact("Priya","Street3","Delhi","9999999993","priya@gmail.com", null, null, null, LocalDate.now())
+        };
+
+        for(Contact contact : contacts){
+
+            Response response =
+                    given()
+                            .contentType("application/json")
+                            .body(contact)
+                    .when()
+                            .post("/contacts")
+                    .then()
+                            .statusCode(201)
+                            .extract()
+                            .response();
+
+            service.addContact(contact);
+        }
+
+        assertEquals(3, AddressBook.contacts.size());
     }
     
     

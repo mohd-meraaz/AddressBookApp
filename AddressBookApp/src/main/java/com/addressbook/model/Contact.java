@@ -15,7 +15,7 @@ public class Contact {
     private String phoneNumber;
     private String email;
     private LocalDate date;
-
+    public Contact() {}
     public Contact(String firstName, String lastName, String address,
                    String city, String state, String zip,
                    String phoneNumber, String email) {
