@@ -2,9 +2,14 @@ package com.addressbook.app;
 
 import com.addressbook.database.ContactDAO;
 import com.addressbook.model.Contact;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
+import com.addressbook.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -98,16 +103,36 @@ public class ContactDAOTest {
                 "test@email.com"
         );
 
-        contact.setDateAdded(LocalDate.now());
+        contact.setDate(LocalDate.now());
         boolean inserted = dao.addContact(contact);
         assertTrue(inserted);
     }
     
     
+    public void shouldAddMultipleContactIntoDatabase() {
+    	ContactDAO dao = new ContactDAO();
+    	List<Contact> contactList = null;
+    	
+    }
     
-    
-    
+    /*
+     * Test Json API to read data
+     */
+    @Test
+    public void shouldRetrieveContactsFromJsonServer() {
 
+        Response response =
+                RestAssured.get("http://localhost:3000/contacts");
+
+        assertEquals(200, response.getStatusCode());
+
+        List<Contact> contacts =
+                response.jsonPath().getList("lucky", Contact.class);
+
+        for(Contact contact : contacts){
+            System.out.println(contact);
+        }
+    }
     
     
     

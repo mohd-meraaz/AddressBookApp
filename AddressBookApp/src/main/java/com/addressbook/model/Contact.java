@@ -14,7 +14,7 @@ public class Contact {
     private String zip;
     private String phoneNumber;
     private String email;
-    private LocalDate dateAdded;
+    private LocalDate date;
 
     public Contact(String firstName, String lastName, String address,
                    String city, String state, String zip,
@@ -28,11 +28,35 @@ public class Contact {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.date = LocalDate.now();
+        
     }
 
-    /* Getters and Setters */
+    public Contact(String firstName, String lastName, String address, String city, String state, String zip,
+			String phoneNumber, String email, LocalDate date) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.date = date;
+	}
 
-    public String getFirstName() { return firstName; }
+	/* Getters and Setters */
+
+    public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public String getFirstName() { return firstName; }
 
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
@@ -63,13 +87,7 @@ public class Contact {
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
-    public LocalDate getDateAdded() {
-        return dateAdded;
-    }
-
-    public void setDateAdded(LocalDate dateAdded) {
-        this.dateAdded = dateAdded;
-    }
+    
 
     /* Override equals to avoid duplicate contact */
 

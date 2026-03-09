@@ -1,5 +1,4 @@
-[
-  {
+[{
     "firstName": "Mohd ",
     "lastName": "Meraaz",
     "address": "Ashoka Garden",
@@ -7,7 +6,8 @@
     "state": "MP",
     "zip": "462010",
     "phoneNumber": "8989246692",
-    "email": "meraaz@gmail.com"
+    "email": "meraaz@gmail.com",
+	"date" : "2026-12-05"
   },
   {
     "firstName": "Zaid",
@@ -17,6 +17,19 @@
     "state": "MP",
     "zip": "462010",
     "phoneNumber": "9283788782",
-    "email": "zaid@gmail.com"
-  }
-]
+    "email": "zaid@gmail.com",
+	"date" : "2026-12-05"
+
+  },
+  {
+        "firstName": "Ayaan",
+        "lastName": "Khan",
+        "address": "Lake View",
+        "city": "Bhopal",
+        "state": "MP",
+        "zip": "462001",
+        "phoneNumber": "9876500001",
+        "email": "ayaan@gmail.com",
+		"date" : "2026-12-05"
+  
+}]

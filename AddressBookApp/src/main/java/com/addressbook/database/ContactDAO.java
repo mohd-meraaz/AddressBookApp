@@ -127,7 +127,7 @@ public class ContactDAO {
                         rs.getString("email")
                 );
 
-                contact.setDateAdded(rs.getDate("date_added").toLocalDate());
+                contact.setDate(rs.getDate("date_added").toLocalDate());
 
                 contacts.add(contact);
             }
@@ -208,7 +208,7 @@ public class ContactDAO {
             ps.setString(6, contact.getZip());
             ps.setString(7, contact.getPhoneNumber());
             ps.setString(8, contact.getEmail());
-            ps.setDate(9, Date.valueOf(contact.getDateAdded()));
+            ps.setDate(9, Date.valueOf(contact.getDate()));
 
             ps.executeUpdate();
 
