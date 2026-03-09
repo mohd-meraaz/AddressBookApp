@@ -213,7 +213,8 @@ public class ContactDAO {
 
             return true;
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
 
             try {
                 if (conn != null) conn.rollback();
