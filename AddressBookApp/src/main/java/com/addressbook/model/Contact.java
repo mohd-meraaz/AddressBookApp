@@ -48,7 +48,10 @@ public class Contact {
 
 	/* Getters and Setters */
 
-    public LocalDate getDate() {
+    public Contact(int i, String string, String string2, String string3, String string4) {
+		// TODO Auto-generated constructor stub
+	}
+	public LocalDate getDate() {
 		return date;
 	}
 

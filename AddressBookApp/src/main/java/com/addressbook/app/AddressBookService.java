@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.addressbook.model.Contact;
+import com.addressbook.repository.AddressBookRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -48,5 +49,31 @@ public class AddressBookService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private List<Contact> contactList = new ArrayList<>();
+    private AddressBookRepository repository;
+
+    public AddressBookService(AddressBookRepository repository) {
+        this.repository = repository;
+    }
+
+    public void syncContacts() {
+        contactList = repository.getContacts();
+    }
+
+    public void updateContact(Contact contact) {
+
+        Contact updated = repository.updateContact(contact);
+
+        for(int i=0;i<contactList.size();i++) {
+            if(contactList.get(i).getZip() == updated.getZip()) {
+                contactList.set(i, updated);
+            }
+        }
+    }
+
+    public List<Contact> getContacts() {
+        return contactList;
     }
 }
