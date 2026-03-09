@@ -93,6 +93,7 @@ public class ContactDAO {
 
         return false;
     }
+    
     public List<Contact> getContactsByDateRange(LocalDate startDate, LocalDate endDate) {
 
         List<Contact> contacts = new ArrayList<>();
@@ -133,5 +134,99 @@ public class ContactDAO {
 
         return contacts;
     }
+    
+    public void getContactCountByCity() {
+
+        String query = "SELECT city, COUNT(*) AS contact_count FROM CONTACT GROUP BY city";
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()
+        ) {
+
+            while (rs.next()) {
+
+                String city = rs.getString("city");
+                int count = rs.getInt("contact_count");
+
+                System.out.println(city + " : " + count);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void getContactCountByState() {
+
+        String query = "SELECT state, COUNT(*) AS contact_count FROM CONTACT GROUP BY state";
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()
+        ) {
+
+            while (rs.next()) {
+
+                String state = rs.getString("state");
+                int count = rs.getInt("contact_count");
+
+                System.out.println(state + " : " + count);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public boolean addContact(Contact contact) {
+
+        String query = "INSERT INTO CONTACT (firstName,lastName,address,city,state,zip,phoneNumber,email,date_added) VALUES (?,?,?,?,?,?,?,?,?)";
+
+        Connection conn = null;
+
+        try {
+
+            conn = DBConnection.getConnection();
+
+            // Start transaction
+            conn.setAutoCommit(false);
+
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            ps.setString(1, contact.getFirstName());
+            ps.setString(2, contact.getLastName());
+            ps.setString(3, contact.getAddress());
+            ps.setString(4, contact.getCity());
+            ps.setString(5, contact.getState());
+            ps.setString(6, contact.getZip());
+            ps.setString(7, contact.getPhoneNumber());
+            ps.setString(8, contact.getEmail());
+            ps.setDate(9, Date.valueOf(contact.getDateAdded()));
+
+            ps.executeUpdate();
+
+            // Commit transaction
+            conn.commit();
+
+            return true;
+
+        } catch (Exception e) {
+
+            try {
+                if (conn != null) conn.rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    
     
 }
